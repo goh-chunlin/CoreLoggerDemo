@@ -1,0 +1,65 @@
+﻿@using CoreLoggerDemo.Models.DataEntryViewModels
+
+@model DataEntryViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="well" style="margin-top: 30px;">
+            <form asp-action="SetDataEntry" class="form-horizontal" method="post">
+
+                <fieldset>
+                    <legend>Create Your New Message</legend>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Message" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="Message" class="form-control" placeholder="Say something here" />
+
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CreatedBy" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="CreatedBy" class="form-control" placeholder="Input your name here" />
+
+                            <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="Email" class="form-control" placeholder="Input your email address" />
+
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </fieldset>
+
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
