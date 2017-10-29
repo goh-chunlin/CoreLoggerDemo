@@ -22,7 +22,7 @@ namespace CoreLoggerDemo.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public await Task<IActionResult> Index()
         {
             _logger.LogTrace(LoggingEvents.ViewHomepage,
                     "Viewed homepage at {DATE_TIME}.",
