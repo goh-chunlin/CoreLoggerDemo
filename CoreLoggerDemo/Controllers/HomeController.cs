@@ -8,6 +8,8 @@ using CoreLoggerDemo.Models;
 using CoreLoggerDemo.Models.DataEntryViewModels;
 using Microsoft.Extensions.Logging;
 using CoreLoggerDemo.Constants;
+using System.Text;
+using System.IO;
 
 namespace CoreLoggerDemo.Controllers
 {
@@ -25,6 +27,18 @@ namespace CoreLoggerDemo.Controllers
             _logger.LogTrace(LoggingEvents.ViewHomepage,
                     "Viewed homepage at {DATE_TIME}.",
                     DateTime.Now);
+                    
+            try
+            {
+                using (var streamReader = new StreamReader("\testing.txt", Encoding.UTF8))
+                {
+                    string output = await streamReader.ReadToEndAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message, "Read testing.txt file at homepage at {DATE_TIME}.", DateTime.Now);
+            }
 
             return View();
         }
