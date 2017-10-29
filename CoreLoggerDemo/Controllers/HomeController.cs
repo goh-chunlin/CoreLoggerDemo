@@ -30,7 +30,7 @@ namespace CoreLoggerDemo.Controllers
                     
             try
             {
-                using (var streamReader = new StreamReader("\testing.txt", Encoding.UTF8))
+                using (var streamReader = new StreamReader(@"\testing.txt", Encoding.UTF8))
                 {
                     string output = await streamReader.ReadToEndAsync();
                 }
