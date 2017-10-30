@@ -10,12 +10,16 @@ using Microsoft.Extensions.Logging;
 using CoreLoggerDemo.Constants;
 using System.Text;
 using System.IO;
+using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.ApplicationInsights;
 
 namespace CoreLoggerDemo.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger _logger;
+
+        private TelemetryClient telemetryClient = new TelemetryClient();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -27,7 +31,16 @@ namespace CoreLoggerDemo.Controllers
             _logger.LogTrace(LoggingEvents.ViewHomepage,
                     "Viewed homepage at {DATE_TIME}.",
                     DateTime.Now);
-                    
+
+            var visitor = new MetricTelemetry();
+            visitor.Name = "Visitor";
+            visitor.Sum += 1;
+            telemetryClient.TrackMetric(visitor);
+
+            telemetryClient.TrackTrace("Visiting Homepage",
+               SeverityLevel.Information,
+               new Dictionary<string, string> { { "Date and Time of Visit", DateTime.Now.ToString("yyyy-MM-dd HH:mm") } });
+
             try
             {
                 using (var streamReader = new StreamReader(@"\testing.txt", Encoding.UTF8))
